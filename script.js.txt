@@ -1,0 +1,51 @@
+let cookies = 0;
+let clickValue = 1;
+let upgradeCost = 10;
+
+function clickCookie() {
+    cookies += clickValue;
+    updateCounter();
+    playClickAnimation();
+}
+
+function updateCounter() {
+    document.getElementById('counter').innerText = `${cookies} cookies`;
+}
+
+function buyUpgrade() {
+    if (cookies >= upgradeCost) {
+        cookies -= upgradeCost;
+        clickValue *= 2;
+        upgradeCost *= 2;
+        updateCounter();
+        showUpgradeMessage();
+    } else {
+        showErrorMessage("Not enough cookies to buy the upgrade!");
+    }
+}
+
+function playClickAnimation() {
+    const cookie = document.getElementById('cookie');
+    cookie.style.transform = 'scale(1.1)';
+    setTimeout(() => {
+        cookie.style.transform = 'scale(1)';
+    }, 100);
+}
+
+function showUpgradeMessage() {
+    const message = document.getElementById('message');
+    message.innerText = `Upgrade purchased! Click value doubled.`;
+    setTimeout(() => {
+        message.innerText = '';
+    }, 2000);
+}
+
+function showErrorMessage(message) {
+    const errorMessage = document.getElementById('message');
+    errorMessage.style.color = 'red';
+    errorMessage.innerText = message;
+    setTimeout(() => {
+        errorMessage.innerText = '';
+        errorMessage.style.color = 'green';
+    }, 2000);
+}
